@@ -6,7 +6,7 @@
     "lint": "",
     "prebuild": "npm run lint",
     "build": "tsc --noEmit && node esbuild.js",
-    "postbuild": "zotero-plugin-zipup build zotero-knowledge-center-plugin",
+    "postbuild": "CI=true zotero-plugin-zipup build zotero-knowledge-center-plugin",
     "release": "zotero-plugin-release",
     "postversion": "git push --follow-tags"
   },
