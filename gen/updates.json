@@ -1,0 +1,17 @@
+{
+  "addons": {
+    "knowledge-center-plugin@youngerinfo.com": {
+      "updates": [
+        {
+          "version": "0.0.42.zhangxing.zhangxing-MacBook-Pro.local",
+          "update_link": "https://github.com/zxing258974/zotero-knowledge-center-plugin/releases/download/v0.0.42.zhangxing.zhangxing-MacBook-Pro.local/zotero-knowledge-center-plugin-0.0.42.zhangxing.zhangxing-MacBook-Pro.local.xpi",
+          "applications": {
+            "zotero": {
+              "strict_min_version": "6.999"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
