@@ -1,6 +1,6 @@
 {
   "name": "zotero-knowledge-center-plugin",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Knowledge Center Plugin",
   "scripts": {
     "lint": "",
