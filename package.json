@@ -1,6 +1,6 @@
 {
   "name": "zotero-knowledge-center-plugin",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Knowledge Center Plugin",
   "scripts": {
     "lint": "",
@@ -44,9 +44,9 @@
     "releaseURL": "https://github.com/zxing258974/zotero-knowledge-center-plugin/releases/download/release/",
     "bootstrapped": true,
     "icons": {
-      "48": "icon.png",
+      "16": "icon.png",
       "32": "icon.png",
-      "16": "icon.png"
+      "48": "icon.png"
     }
   }
 }
