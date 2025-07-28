@@ -1,0 +1,30 @@
+name: Build and Release Zotero Plugin
+
+on:
+  push:
+    tags:
+      - 'v*'  # 仅在如 v1.0.1 的标签推送时触发
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build plugin
+        run: npm run build
+
+      - name: Release plugin
+        run: npx zotero-plugin-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
