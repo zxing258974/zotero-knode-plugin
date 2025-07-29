@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Knowledge Center Plugin",
   "version": "0.0.1",
-  "description": "Knowledge Center Plugin",
+  "description": "Sync Zotero item into Knowledge Center",
   "applications": {
     "zotero": {
       "id": "knowledge-center-plugin@youngerinfo.com",
@@ -10,10 +10,5 @@
       "strict_min_version": "6.999",
       "strict_max_version": "7.0.*"
     }
-  },
-  "icons": {
-    "48": "icon-48.png",
-    "32": "icon-32.png",
-    "16": "icon-16.png"
   }
 }

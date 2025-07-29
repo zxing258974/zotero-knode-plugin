@@ -1,1 +1,1 @@
-module.exports = "1.0.4.zhangxing.zhangxing-MacBook-Pro.local";
+module.exports = "1.0.5.zhangxing.zhangxing-MacBook-Pro.local";

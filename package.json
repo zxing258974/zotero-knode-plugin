@@ -1,6 +1,6 @@
 {
   "name": "zotero-knowledge-center-plugin",
-  "version": "1.0.5",
+  "version": "1.0.4",
   "description": "Sync Zotero item into Knowledge Center",
   "scripts": {
     "lint": "",
@@ -47,8 +47,6 @@
       "16": "icon.png",
       "32": "icon.png",
       "48": "icon.png"
-    },
-    "author": "YIT",
-    "homepage": "https://github.com/zxing258974/zotero-knowledge-center-plugin"
+    }
   }
 }
