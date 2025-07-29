@@ -90,20 +90,17 @@ Zotero.KnowledgeCenterPlugin = new class {
       this.fail(msg, itemProgress)
       return
     }
-    // 显示进度窗口
-    this.progressWindow.show()
     // 遍历所有选中的条目
     let i = 0
     for (const item of items) {
-      const displayTitle = item.getDisplayTitle()
-
-      this.log(`Processing item: "${displayTitle}" (ID: ${item.id})`)
       // 检查条目类型是否为“期刊文章”，如果不是则报错并停止
       if (item.itemType !== 'journalArticle') {
         const msg = await l10n.formatValue('kcenter-sync-item-type-error')
         this.fail(msg, itemProgress)
         return
       }
+      const displayTitle = item.getDisplayTitle()
+      this.log(`Processing item: "${displayTitle}" (ID: ${item.id})`)
 
       // 为上传准备 FormData
       const formData = new FormData()
@@ -134,6 +131,7 @@ Zotero.KnowledgeCenterPlugin = new class {
                 // 创建一个 Blob 对象并将其添加到表单中，准备上传
                 const fileBlob = new Blob([fileContentBytes], { type: 'application/pdf' })
                 formData.append('file', fileBlob, filename)
+                break
               }
               catch (e) {
                 this.log(`    Error processing file ${filename}: ${e}`)
