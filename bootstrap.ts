@@ -9,6 +9,7 @@ var menuitemID = 'make-it-green-instead'
 var toolbarbuttonID = 'knowledge-center-toolbar-button'
 var rightMenuID = 'knowledge-center-item-menu'
 var collectionMenuID = 'knowledge-center-collection-menu'
+var menuUpdateTimerID: number | null = null
 var addedElementIDs = [stylesheetID, ftlID, menuitemID, toolbarbuttonID, rightMenuID, collectionMenuID]
 
 function log(msg) {
@@ -17,6 +18,46 @@ function log(msg) {
 
 export function install() {
   log('Installed')
+}
+
+/**
+ * 异步更新同步菜单中的标签列表。
+ * 该函数会清空现有的菜单项，从服务器获取最新的标签列表，然后重新生成菜单。
+ * @param doc Zotero 主窗口的 document 对象
+ */
+async function updateSyncMenu(doc) {
+  const menupopup = doc.querySelector(`#${rightMenuID} > menupopup`)
+  if (!menupopup) {
+    log(`Could not find menupopup for menu ID: ${rightMenuID}`)
+    return
+  }
+
+  // 清空现有的动态菜单项
+  while (menupopup.firstChild) {
+    menupopup.removeChild(menupopup.firstChild)
+  }
+
+  // 定义默认菜单项，并从服务器获取标签列表进行合并
+  let menuItems = [{ id: -1, tagName: '默认文献夹' }]
+  try {
+    const tags = await Zotero.KnowledgeCenterPlugin.getTags()
+    log(`Fetched tags for menu: ${JSON.stringify(tags)}`)
+    if (Array.isArray(tags)) {
+      menuItems = menuItems.concat(tags)
+    }
+  }
+  catch (e) {
+    log(`Could not fetch tags for menu update: ${e}`)
+  }
+
+  // 重新创建二级菜单项
+  for (const item of menuItems) {
+    const menuItem = doc.createXULElement('menuitem')
+    menuItem.id = `${rightMenuID}-${item.id}`
+    menuItem.setAttribute('label', item.tagName)
+    menuItem.addEventListener('command', async () => { await Zotero.KnowledgeCenterPlugin.itemSyncKcenter(item.id)})
+    menupopup.appendChild(menuItem)
+  }
 }
 
 export async function startup({ id, version, rootURI }) {
@@ -60,44 +101,34 @@ export async function startup({ id, version, rootURI }) {
     menu.setAttribute('data-l10n-id', 'kcenter-sync-title') // 一级菜单的标签，例如 "知识中心"
     menu.setAttribute('image', `${rootURI}icon.png`)
 
-    // 创建一个弹出菜单作为二级菜单的容器
+    // 创建一个弹出菜单作为二级菜单的容器，并将其附加到主菜单
     const menupopup = doc.createXULElement('menupopup')
-
-    // 定义二级菜单项，并从服务器获取标签列表进行合并
-    let menuItems = [{ id: -1, tagName: '默认文献夹' }]
-    try {
-      const tags = await Zotero.KnowledgeCenterPlugin.getTags()
-      Zotero.KnowledgeCenterPlugin.log(`tags - ${JSON.stringify(tags)}`)
-      // 确保返回的是一个数组才进行合并
-      if (Array.isArray(tags)) {
-        menuItems = menuItems.concat(tags)
-      }
-    }
-    catch (e) {
-      log(`Could not fetch tags for menu: ${e}`)
-    }
-
-    Zotero.KnowledgeCenterPlugin.log(menuItems)
-    // 循环创建二级菜单项
-    for (const item of menuItems) {
-      const menuItem = doc.createXULElement('menuitem')
-      menuItem.id = `${rightMenuID}-${item.id}`
-      menuItem.setAttribute('label', item.tagName)
-      // 使用闭包来捕获每个菜单项特定的参数
-      menuItem.addEventListener('command', async () => {
-        await Zotero.KnowledgeCenterPlugin.itemSyncKcenter(item.id)
-      })
-      menupopup.appendChild(menuItem)
-    }
     menu.appendChild(menupopup)
+
     // 将整个二级菜单结构添加到条目右键菜单中
     doc.getElementById('zotero-itemmenu').appendChild(menu)
+
+    // 首次加载时，立即填充菜单
+    await updateSyncMenu(doc)
+
+    // 设置一个定时器，每分钟更新一次菜单
+    const interval = 60 * 1000 // 60秒
+    menuUpdateTimerID = Zotero.getMainWindow().setInterval(async () => {
+      log('Periodically updating sync menu tags...')
+      await updateSyncMenu(doc)
+    }, interval)
   }
   Zotero.KnowledgeCenterPlugin.foo()
 }
 
 export function shutdown() {
   log('Shutting down')
+
+  // 清除定时器，防止插件卸载或禁用后继续运行
+  if (menuUpdateTimerID) {
+    Zotero.getMainWindow().clearInterval(menuUpdateTimerID)
+    menuUpdateTimerID = null
+  }
 
   // Remove added UI elements
   var zp = Zotero.getActiveZoteroPane()

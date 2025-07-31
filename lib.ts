@@ -99,20 +99,13 @@ Zotero.KnowledgeCenterPlugin = new class {
     }
     // 遍历所有选中的条目
     for (const item of items) {
-      const displayTitle = item.getDisplayTitle()
-      const extraField = item.getField('extra') || ''
-      // 检查条目是否已经同步过 (通过 Extra 字段)
-      if (extraField.includes('KCenter-Synced: true')) {
-        this.log(`Skipping already synced item: "${displayTitle}"`)
-        continue
-      }
-
       // 检查条目类型是否为“期刊文章”，如果不是则报错并停止
       if (item.itemType !== 'journalArticle') {
         const msg = await l10n.formatValue('kcenter-sync-item-type-error')
         await this.fail(msg)
         continue
       }
+      const displayTitle = item.getDisplayTitle()
       this.log(`Processing item: "${displayTitle}" (ID: ${item.id})`)
 
       // 为上传准备 FormData
@@ -177,11 +170,6 @@ Zotero.KnowledgeCenterPlugin = new class {
           const msg = await l10n.formatValue('kcenter-sync-success')
           const successMessage = `${displayTitle} ${msg} `
           await this.success(successMessage)
-          // 在 Extra 字段中添加同步标记
-          const newExtra = extraField ? `${extraField}\nKCenter-Synced: true` : 'KCenter-Synced: true'
-          item.setField('extra', newExtra)
-          // 异步保存对条目的修改
-          await item.saveTx()
         }
         else {
           // 如果失败，记录错误并显示失败信息
