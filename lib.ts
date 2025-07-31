@@ -61,7 +61,9 @@ Zotero.KnowledgeCenterPlugin = new class {
     return Zotero.getMainWindow().document.l10n
   }
 
-  async itemSyncKcenter(): Promise<void> {
+  async itemSyncKcenter(tagId?: number): Promise<void> {
+    this.log(`Starting sync with parameter: ${tagId || 'not specified'}`)
+
     // 从 Zotero 主窗口获取 FormData 和 Blob 构造函数，用于创建表单数据
     const { FormData, Blob } = Zotero.getMainWindow()
     // 获取本地化（多语言）对象
@@ -70,8 +72,6 @@ Zotero.KnowledgeCenterPlugin = new class {
     // 从 Zotero 首选项中获取 API Key 和基础 URL
     const apiKey = Zotero.Prefs.get('extensions.zotero-knowledge-center-plugin.apikey', true) || ''
     const baseUrl = Zotero.Prefs.get('extensions.zotero-knowledge-center-plugin.baseurl', true) || ''
-    // 创建一个新的项目进度条
-    
     // 检查 API Key 是否已配置
     if (!apiKey || apiKey === '') {
       const msg = await l10n.formatValue('kcenter-sync-error-apikey-missing')
@@ -99,13 +99,20 @@ Zotero.KnowledgeCenterPlugin = new class {
     }
     // 遍历所有选中的条目
     for (const item of items) {
+      const displayTitle = item.getDisplayTitle()
+      const extraField = item.getField('extra') || ''
+      // 检查条目是否已经同步过 (通过 Extra 字段)
+      if (extraField.includes('KCenter-Synced: true')) {
+        this.log(`Skipping already synced item: "${displayTitle}"`)
+        continue
+      }
+
       // 检查条目类型是否为“期刊文章”，如果不是则报错并停止
       if (item.itemType !== 'journalArticle') {
         const msg = await l10n.formatValue('kcenter-sync-item-type-error')
         await this.fail(msg)
         continue
       }
-      const displayTitle = item.getDisplayTitle()
       this.log(`Processing item: "${displayTitle}" (ID: ${item.id})`)
 
       // 为上传准备 FormData
@@ -154,7 +161,7 @@ Zotero.KnowledgeCenterPlugin = new class {
       try {
         // 将数据上传到服务器
         // 构造完整的上传 URL
-        const uploadURL = `${baseUrl.replace(/\/$/, '')}/open_yit_ai/user/knowledgeCenter/zotero/sync`
+        const uploadURL = `${baseUrl.replace(/\/$/, '')}/open_yit_ai/user/knowledgeCenter/zotero/sync?tagId=${tagId}`
 
         const response = await fetch(uploadURL, {
           method: 'POST',
@@ -170,6 +177,11 @@ Zotero.KnowledgeCenterPlugin = new class {
           const msg = await l10n.formatValue('kcenter-sync-success')
           const successMessage = `${displayTitle} ${msg} `
           await this.success(successMessage)
+          // 在 Extra 字段中添加同步标记
+          const newExtra = extraField ? `${extraField}\nKCenter-Synced: true` : 'KCenter-Synced: true'
+          item.setField('extra', newExtra)
+          // 异步保存对条目的修改
+          await item.saveTx()
         }
         else {
           // 如果失败，记录错误并显示失败信息
@@ -186,5 +198,27 @@ Zotero.KnowledgeCenterPlugin = new class {
         await this.fail(msg)
       }
     }
+  }
+
+  async getTags(): Promise<any[]> {
+    // 从 Zotero 首选项中获取 API Key 和基础 URL
+    const apiKey = Zotero.Prefs.get('extensions.zotero-knowledge-center-plugin.apikey', true) || null
+    const baseUrl = Zotero.Prefs.get('extensions.zotero-knowledge-center-plugin.baseurl', true) || null
+
+    if (!apiKey || !baseUrl) {
+      return []
+    }
+    const url = `${baseUrl.replace(/\/$/, '')}/open_yit_ai/user/knowledgeCenter/zotero/tags`
+    const response = await fetch(url, {
+      headers: {
+        'yit-kcenter-key': `${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+    })
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`)
+    }
+    const data = await response.json()
+    return data['data']
   }
 }

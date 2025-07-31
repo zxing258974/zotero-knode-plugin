@@ -29,7 +29,8 @@ export async function startup({ id, version, rootURI }) {
     label: 'Kcenter', // 在 Zotero 设置中显示的标签
     image: `${rootURI}icon.png`, // 设置面板的图标
   })
-
+  // 加载插件的核心逻辑文件 lib.js
+  Services.scriptloader.loadSubScript(`${rootURI  }lib.js`)
   // 获取当前活动的 Zotero 窗格
   var zp = Zotero.getActiveZoteroPane()
   if (zp) {
@@ -53,19 +54,45 @@ export async function startup({ id, version, rootURI }) {
     })
     doc.getElementById('menu_ToolsPopup').appendChild(button)
 
-    // 在条目列表的右键菜单中添加一个菜单项
-    const rightMenu = doc.createXULElement('menuitem')
-    rightMenu.id = rightMenuID
-    rightMenu.setAttribute('data-l10n-id', 'kcenter-sync-title') // 使用本地化ID
-    rightMenu.setAttribute('image', `${rootURI}icon.png`)
-    rightMenu.addEventListener('command', async () => {
-      // 点击时执行同步功能
-      await Zotero.KnowledgeCenterPlugin.itemSyncKcenter()
-    })
-    doc.getElementById('zotero-itemmenu').appendChild(rightMenu)
+    // 创建一个顶级菜单，它将作为二级菜单的父级
+    const menu = doc.createXULElement('menu')
+    menu.id = rightMenuID
+    menu.setAttribute('data-l10n-id', 'kcenter-sync-title') // 一级菜单的标签，例如 "知识中心"
+    menu.setAttribute('image', `${rootURI}icon.png`)
+
+    // 创建一个弹出菜单作为二级菜单的容器
+    const menupopup = doc.createXULElement('menupopup')
+
+    // 定义二级菜单项，并从服务器获取标签列表进行合并
+    let menuItems = [{ id: -1, tagName: '默认文献夹' }]
+    try {
+      const tags = await Zotero.KnowledgeCenterPlugin.getTags()
+      Zotero.KnowledgeCenterPlugin.log(`tags - ${JSON.stringify(tags)}`)
+      // 确保返回的是一个数组才进行合并
+      if (Array.isArray(tags)) {
+        menuItems = menuItems.concat(tags)
+      }
+    }
+    catch (e) {
+      log(`Could not fetch tags for menu: ${e}`)
+    }
+
+    Zotero.KnowledgeCenterPlugin.log(menuItems)
+    // 循环创建二级菜单项
+    for (const item of menuItems) {
+      const menuItem = doc.createXULElement('menuitem')
+      menuItem.id = `${rightMenuID}-${item.id}`
+      menuItem.setAttribute('label', item.tagName)
+      // 使用闭包来捕获每个菜单项特定的参数
+      menuItem.addEventListener('command', async () => {
+        await Zotero.KnowledgeCenterPlugin.itemSyncKcenter(item.id)
+      })
+      menupopup.appendChild(menuItem)
+    }
+    menu.appendChild(menupopup)
+    // 将整个二级菜单结构添加到条目右键菜单中
+    doc.getElementById('zotero-itemmenu').appendChild(menu)
   }
-  // 加载插件的核心逻辑文件 lib.js
-  Services.scriptloader.loadSubScript(`${rootURI  }lib.js`)
   Zotero.KnowledgeCenterPlugin.foo()
 }
 
