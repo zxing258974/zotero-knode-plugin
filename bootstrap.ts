@@ -3,17 +3,17 @@
 declare const Zotero: any
 declare const Services: any
 
-var stylesheetID = 'zotero-knode-plugin-stylesheet'
-var ftlID = 'zotero-knode-plugin-ftl'
+var stylesheetID = 'zotero-knowledge-center-plugin-stylesheet'
+var ftlID = 'zotero-knowledge-center-plugin-ftl'
 var menuitemID = 'make-it-green-instead'
-var toolbarbuttonID = 'knode-toolbar-button'
-var rightMenuID = 'knode-item-menu'
-var collectionMenuID = 'knode-collection-menu'
+var toolbarbuttonID = 'knowledge-center-toolbar-button'
+var rightMenuID = 'knowledge-center-item-menu'
+var collectionMenuID = 'knowledge-center-collection-menu'
 var menuUpdateTimerID: number | null = null
 var addedElementIDs = [stylesheetID, ftlID, menuitemID, toolbarbuttonID, rightMenuID, collectionMenuID]
 
 function log(msg) {
-  Zotero.debug(`Knode Plugin: ${  msg}`)
+  Zotero.debug(`Knowledge Center Plugin: ${  msg}`)
 }
 
 export function install() {
@@ -55,7 +55,7 @@ async function updateSyncMenu(doc) {
     const menuItem = doc.createXULElement('menuitem')
     menuItem.id = `${rightMenuID}-${item.id}`
     menuItem.setAttribute('label', item.tagName)
-    menuItem.addEventListener('command', async () => { await Zotero.KnowledgeCenterPlugin.itemSyncKnode(item.id)})
+    menuItem.addEventListener('command', async () => { await Zotero.KnowledgeCenterPlugin.itemSyncKcenter(item.id)})
     menupopup.appendChild(menuItem)
   }
 }
@@ -67,7 +67,7 @@ export async function startup({ id, version, rootURI }) {
   const paneID = await Zotero.PreferencePanes.register({
     pluginID: 'knode-plugin@youngerinfo.com', // 插件的唯一ID
     src: `${rootURI}preferences.xhtml`, // 设置面板界面的 xhtml 文件路径
-    label: 'Knode', // 在 Zotero 设置中显示的标签
+    label: 'Kcenter', // 在 Zotero 设置中显示的标签
     image: `${rootURI}icon.png`, // 设置面板的图标
   })
   // 加载插件的核心逻辑文件 lib.js
@@ -81,13 +81,13 @@ export async function startup({ id, version, rootURI }) {
     const link2 = doc.createElement('link')
     link2.id = ftlID
     link2.rel = 'localization'
-    link2.href = 'zotero-knode-plugin.ftl'
+    link2.href = 'zotero-knowledge-center-plugin.ftl'
     doc.documentElement.appendChild(link2)
 
     // 在“工具”菜单下添加一个菜单项，用于打开插件设置
     const button = doc.createXULElement('menuitem')
     button.id = toolbarbuttonID
-    button.setAttribute('data-l10n-id', 'knode-preferences') // 使用本地化ID来显示文本
+    button.setAttribute('data-l10n-id', 'kcenter-preferences') // 使用本地化ID来显示文本
     button.setAttribute('image', `${rootURI}icon.png`)
     button.addEventListener('command', () => {
       // 点击时打开上面注册的设置面板
@@ -98,7 +98,7 @@ export async function startup({ id, version, rootURI }) {
     // 创建一个顶级菜单，它将作为二级菜单的父级
     const menu = doc.createXULElement('menu')
     menu.id = rightMenuID
-    menu.setAttribute('data-l10n-id', 'knode-sync-title') // 一级菜单的标签，例如 "知识中心"
+    menu.setAttribute('data-l10n-id', 'kcenter-sync-title') // 一级菜单的标签，例如 "知识中心"
     menu.setAttribute('image', `${rootURI}icon.png`)
 
     // 创建一个弹出菜单作为二级菜单的容器，并将其附加到主菜单
