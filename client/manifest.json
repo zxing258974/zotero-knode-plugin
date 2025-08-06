@@ -3,20 +3,20 @@
   "name": "Knode",
   "version": "0.0.1",
   "description": "Sync Zotero item into Knode",
-  "author": {
-    "name": "YIT",
-    "email": "zhangx@youngerinfo.com"
-  },
-  "bugs": {
-    "url": "https://github.com/zxing258974/zotero-knode-plugin/issues"
-  },
-  "homepage": "https://github.com/zxing258974/zotero-knode-plugin",
   "applications": {
     "zotero": {
-      "id": "knowledge-center-plugin@youngerinfo.com",
+      "id": "zotero-knode-plugin@youngerinfo.com",
       "update_url": "https://github.com/zxing258974/zotero-knode-plugin/releases/download/release/update.rdf",
       "strict_min_version": "6.999",
-      "strict_max_version": "7.0.*"
+      "strict_max_version": "7.0.*",
+      "author": {
+        "name": "YIT",
+        "email": "zhangx@youngerinfo.com"
+      },
+      "bugs": {
+        "url": "https://github.com/zxing258974/zotero-knode-plugin/issues"
+      },
+      "homepage": "https://github.com/zxing258974/zotero-knode-plugin"
     }
   }
 }

@@ -5,7 +5,7 @@
 ## 使用方式
 1.  请先登录个人知识中心，获取"域名"和"API KEY"
 
-2. 下载最新版本插件 [点击下载](https://github.com/zxing258974/zotero-knowledge-center-plugin/releases)
+2. 下载最新版本插件 [点击下载](https://github.com/zxing258974/zotero-knode-plugin/releases)
 
 3. 在菜单栏 "工具">"插件" 菜单打开插件页面</h4>
 
@@ -15,7 +15,7 @@
 
 ![images/zotero_plugin_viwe_tool.png](images/zotero_plugin_viwe_tool.png)
 
-5. 选择下载的最新版本 zotero-knowledge-center-plugin 插件
+5. 选择下载的最新版本 zotero-knode-plugin 插件
 
 ![images/zotero_plugin_install_success.png](images/zotero_plugin_install_success.png)
 
