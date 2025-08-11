@@ -1,6 +1,6 @@
 {
   "name": "zotero-knode-plugin",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Sync Zotero item into Knode",
   "scripts": {
     "lint": "",
