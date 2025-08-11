@@ -67,7 +67,7 @@ export async function startup({ id, version, rootURI }) {
   const paneID = await Zotero.PreferencePanes.register({
     pluginID: 'knode-plugin@youngerinfo.com', // 插件的唯一ID
     src: `${rootURI}preferences.xhtml`, // 设置面板界面的 xhtml 文件路径
-    label: 'Knote', // 在 Zotero 设置中显示的标签
+    label: 'Knode', // 在 Zotero 设置中显示的标签
     image: `${rootURI}icon.png`, // 设置面板的图标
   })
   // 加载插件的核心逻辑文件 lib.js
