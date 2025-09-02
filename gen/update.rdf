@@ -11,7 +11,7 @@
                 <em:id>zotero@chnm.gmu.edu</em:id>
                 <em:minVersion>5.0</em:minVersion>
                 <em:maxVersion>6.0.*</em:maxVersion>
-                <em:updateLink>https://ai.yangge.yitlink.com/releases/download/zotero-knode-plugin-1.1.11.zhangxing.zhangxing-MacBook-Pro.local.xpi</em:updateLink>
+                <em:updateLink>https://ai.yangge.yitlink.com/download/release/zotero-knode-plugin-1.1.11.zhangxing.zhangxing-MacBook-Pro.local.xpi</em:updateLink>
               </RDF:Description>
             </em:targetApplication>
             <em:targetApplication>
@@ -19,7 +19,7 @@
                 <em:id>juris-m@juris-m.github.io</em:id>
                 <em:minVersion>5.0</em:minVersion>
                 <em:maxVersion>6.0.*</em:maxVersion>
-                <em:updateLink>https://ai.yangge.yitlink.com/releases/download/zotero-knode-plugin-1.1.11.zhangxing.zhangxing-MacBook-Pro.local.xpi</em:updateLink>
+                <em:updateLink>https://ai.yangge.yitlink.com/download/release/zotero-knode-plugin-1.1.11.zhangxing.zhangxing-MacBook-Pro.local.xpi</em:updateLink>
               </RDF:Description>
             </em:targetApplication>
           </RDF:Description>

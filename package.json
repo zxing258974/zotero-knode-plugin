@@ -1,6 +1,6 @@
 {
   "name": "zotero-knode-plugin",
-  "version": "1.1.12",
+  "version": "1.1.11",
   "description": "Sync Zotero item into Knode",
   "scripts": {
     "lint": "",
@@ -40,8 +40,8 @@
   },
   "xpi": {
     "name": "Knode",
-    "updateLink": "https://ai.yangge.yitlink.com/releases/download/zotero-knode-plugin-{version}.xpi",
-    "releaseURL": "https://ai.yangge.yitlink.com/releases/download/",
+    "updateLink": "https://ai.yangge.yitlink.com/download/release/zotero-knode-plugin-{version}.xpi",
+    "releaseURL": "https://ai.yangge.yitlink.com/download/release/",
     "bootstrapped": true,
     "icons": {
       "16": "icon.png",
