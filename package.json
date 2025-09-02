@@ -1,6 +1,6 @@
 {
   "name": "zotero-knode-plugin",
-  "version": "1.1.7",
+  "version": "1.1.5",
   "description": "Sync Zotero item into Knode",
   "scripts": {
     "lint": "",
@@ -12,16 +12,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://gitee.com/yanggeYit/zotero-knode-plugin.git"
+    "url": "https://github.com/zxing258974/zotero-knode-plugin.git"
   },
   "author": {
     "name": "xing zhang",
     "email": "zhangx@youngerinfo.com"
   },
   "bugs": {
-    "url": "https://gitee.com/yanggeYit/zotero-knode-plugin/issues"
+    "url": "https://github.com/zxing258974/zotero-knode-plugin/issues"
   },
-  "homepage": "https://gitee.com/yanggeYit/zotero-knode-plugin",
+  "homepage": "https://github.com/zxing258974/zotero-knode-plugin",
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^5.59.9",
     "@typescript-eslint/parser": "^5.59.9",
