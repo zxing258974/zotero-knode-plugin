@@ -12,16 +12,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/zxing258974/zotero-knode-plugin.git"
+    "url": "https://gitee.com/yanggeYit/zotero-knode-plugin.git"
   },
   "author": {
     "name": "xing zhang",
     "email": "zhangx@youngerinfo.com"
   },
   "bugs": {
-    "url": "https://github.com/zxing258974/zotero-knode-plugin/issues"
+    "url": "https://gitee.com/yanggeYit/zotero-knode-plugin/issues"
   },
-  "homepage": "https://github.com/zxing258974/zotero-knode-plugin",
+  "homepage": "https://gitee.com/yanggeYit/zotero-knode-plugin",
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^5.59.9",
     "@typescript-eslint/parser": "^5.59.9",
@@ -40,9 +40,9 @@
   },
   "xpi": {
     "name": "Knode",
-    "updateLink": "https://github.com/zxing258974/zotero-knode-plugin/releases/download/v{version}/zotero-knode-plugin-{version}.xpi",
-    "releaseURL": "https://github.com/zxing258974/zotero-knode-plugin/releases/download/release/",
-    "update_url": "https://github.com/zxing258974/zotero-knode-plugin/releases/download/release/update.rdf",
+    "updateLink": "https://gitee.com/yanggeYit/zotero-knode-plugin/releases/download/v{version}/zotero-knode-plugin-{version}.xpi",
+    "releaseURL": "https://gitee.com/yanggeYit/zotero-knode-plugin/releases/download/release/",
+    "update_url": "https://gitee.com/yanggeYit/zotero-knode-plugin/releases/download/release/update.rdf",
     "bootstrapped": true,
     "icons": {
       "16": "icon.png",

@@ -8,13 +8,15 @@
     "email": "zhangx@youngerinfo.com"
   },
   "bugs": {
-    "url": "https://github.com/zxing258974/zotero-knode-plugin/issues"
+    "url": "https://gitee.com/yanggeYit/zotero-knode-plugin/issues"
   },
-  "homepage": "https://github.com/zxing258974/zotero-knode-plugin",
+  "homepage": "https://gitee.com/yanggeYit/zotero-knode-plugin",
   "applications": {
     "zotero": {
       "id": "knowledge-center-plugin@youngerinfo.com",
-      "update_url": "https://github.com/zxing258974/zotero-knode-plugin/releases/download/release/update.rdf",
+      "updateLink": "https://gitee.com/yanggeYit/zotero-knode-plugin/releases/download/v{version}/zotero-knode-plugin-{version}.xpi",
+      "releaseURL": "https://gitee.com/yanggeYit/zotero-knode-plugin/releases/download/release/",
+      "update_url": "https://gitee.com/yanggeYit/zotero-knode-plugin/releases/download/release/update.rdf",
       "strict_min_version": "6.999",
       "strict_max_version": "7.0.*"
     }

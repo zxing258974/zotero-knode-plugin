@@ -5,13 +5,13 @@
       <RDF:Seq>
         <RDF:li>
           <RDF:Description>
-            <em:version>1.1.4.zhangxing.zhangxing-MacBook-Pro.local</em:version>
+            <em:version>1.1.5.zhangxing.zhangxing-MacBook-Pro.local</em:version>
             <em:targetApplication>
               <RDF:Description>
                 <em:id>zotero@chnm.gmu.edu</em:id>
                 <em:minVersion>5.0</em:minVersion>
                 <em:maxVersion>6.0.*</em:maxVersion>
-                <em:updateLink>https://github.com/zxing258974/zotero-knode-plugin/releases/download/v1.1.4.zhangxing.zhangxing-MacBook-Pro.local/zotero-knode-plugin-1.1.4.zhangxing.zhangxing-MacBook-Pro.local.xpi</em:updateLink>
+                <em:updateLink>https://gitee.com/yanggeYit/zotero-knode-plugin/releases/download/v1.1.5.zhangxing.zhangxing-MacBook-Pro.local/zotero-knode-plugin-1.1.5.zhangxing.zhangxing-MacBook-Pro.local.xpi</em:updateLink>
               </RDF:Description>
             </em:targetApplication>
             <em:targetApplication>
@@ -19,7 +19,7 @@
                 <em:id>juris-m@juris-m.github.io</em:id>
                 <em:minVersion>5.0</em:minVersion>
                 <em:maxVersion>6.0.*</em:maxVersion>
-                <em:updateLink>https://github.com/zxing258974/zotero-knode-plugin/releases/download/v1.1.4.zhangxing.zhangxing-MacBook-Pro.local/zotero-knode-plugin-1.1.4.zhangxing.zhangxing-MacBook-Pro.local.xpi</em:updateLink>
+                <em:updateLink>https://gitee.com/yanggeYit/zotero-knode-plugin/releases/download/v1.1.5.zhangxing.zhangxing-MacBook-Pro.local/zotero-knode-plugin-1.1.5.zhangxing.zhangxing-MacBook-Pro.local.xpi</em:updateLink>
               </RDF:Description>
             </em:targetApplication>
           </RDF:Description>
