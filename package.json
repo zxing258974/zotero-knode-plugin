@@ -2,7 +2,6 @@
   "name": "zotero-knode-plugin",
   "id": "knode-plugin@youngerinfo.com",
   "version": "1.1.15",
-  "packageManager": "pnpm@10.30.2",
   "description": "Sync Zotero item into Knode",
   "scripts": {
     "lint": "",
@@ -28,7 +27,7 @@
     "@typescript-eslint/eslint-plugin": "^8.58.2",
     "@typescript-eslint/parser": "^8.58.2",
     "esbuild": "^0.28.0",
-    "eslint": "^10.2.0",
+    "eslint": "^9.38.0",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jsdoc": "^62.9.0",
     "eslint-plugin-prefer-arrow": "^1.2.3",

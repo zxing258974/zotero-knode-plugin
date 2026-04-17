@@ -40,15 +40,29 @@
 ```bash
 # 提交当前更新
 git add .
-git commit -m "release: 1.1.16"
+git commit -m "release: 1.1.15"
 
 # 提交 tag
-git tag v1.1.16
+git tag v1.1.15
 
 # 推送到仓库
 git push origin main
 # 推送 tag
-git push origin v1.1.16
+git push origin v1.1.15
 ```
 
 github 在 Actions 下自动打包
+
+在 Github Actions 打包出错的情况下修复错误后可以使用以下命令重新打包
+
+```bash
+git add .
+git commit -m "fix: github release workflow"
+git push origin main
+
+git tag -d v1.1.15
+git push origin :refs/tags/v1.1.15
+
+git tag v1.1.15
+git push origin v1.1.15
+```
