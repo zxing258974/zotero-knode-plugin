@@ -2,6 +2,7 @@
   "name": "zotero-knode-plugin",
   "id": "knode-plugin@youngerinfo.com",
   "version": "1.1.15",
+  "packageManager": "pnpm@10.30.2",
   "description": "Sync Zotero item into Knode",
   "scripts": {
     "lint": "",

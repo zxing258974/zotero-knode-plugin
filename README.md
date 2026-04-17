@@ -34,3 +34,21 @@
 ![images/zotero_item_sync.png](images/zotero_items_sync.png)
 
 10. 打开个人知识中心文献资源查看同步的类容。</h4>  
+
+## 打包流程
+
+```bash
+# 提交当前更新
+git add .
+git commit -m "release: 1.1.16"
+
+# 提交 tag
+git tag v1.1.16
+
+# 推送到仓库
+git push origin main
+# 推送 tag
+git push origin v1.1.16
+```
+
+github 在 Actions 下自动打包
